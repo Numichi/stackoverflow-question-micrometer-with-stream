@@ -1,3 +1,5 @@
+@file:Suppress("ReactiveStreamsUnusedPublisher")
+
 package com.example.demo
 
 import io.micrometer.context.ContextSnapshot
@@ -58,7 +60,7 @@ class TestController(
     @GetMapping("/")
     fun foo() = mono {
         runObserved("foo", observationRegistry) {
-            stream.tryEmitNext(Data("foo"));
+            stream.tryEmitNext(Data("foo"))
         }
     }
 }
