@@ -1,1 +1,36 @@
+management:
+  endpoints.web.exposure.include: "*"
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
 
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
+spring:
+  rabbitmq:
+    username: user
+    password: bitnami
+    port: 5672
+    host: localhost
+  cloud:
+    function:
+      definition: mqSend;mqReceive
+    stream:
+      metrics:
+      bindings:
+        mqSend-out-0:
+          binder: rabbit
+          destination: test
+          content-type: application/json
+          producer:
+            required-groups:
+              - tester-group
+        mqReceive-in-0:
+          binder: rabbit
+          destination: test
+          content-type: application/json
+          group: tester-group
