@@ -1,7 +1,9 @@
 ## Question
-I configured a basic Spring Boot with Micrometer and Spring Stream (with RabbitMQ). I would like to configure that traceId can be passed into another service through Spring Stream. I would like to see only one trace in the Zipkin from the start service to the receiver service via rabbitmq.
+I configured a basic Spring Boot with Micrometer and Spring Stream (with RabbitMQ). I would like to configure that traceId can be passed into another service through Spring Stream.
 
-How can it solve?
+I understand it loses trace info when I use tryNextEmit. So it will generate a new. I also understand, RabbitMQ messages get a "traceparent" header with "00-xxxxxx-xxx-01" new value.
+
+So my question: How can I connect both traces that Spring Stream uses older trace information and one record appear in Zipkin?
 
 ## PoC
 ### Start
